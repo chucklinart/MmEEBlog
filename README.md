@@ -44,6 +44,7 @@ something different and better!*
    https://redis.io/topics/config 
 5) Configure supervisor per examples/supervisor.conf_example 
 6) Restart supervisor (sudo service supervisor restart), Redis, and your project and web servers
+7) `migrate` and `collectstatic`
 
 You should see everything in the admin section, and it should be working splendidly. 
 
