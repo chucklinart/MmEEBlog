@@ -1,0 +1,156 @@
+/* general styles */
+
+body {
+    background: #000;
+}
+
+.chuckhead {
+    padding: 0 10px;
+    text-align: center;
+    margin-bottom: 5px;
+    background: #000 url("img/chuckhead-bg.png") repeat-x left top;
+}
+
+.chuckhead h2 {
+    color: #f3f3f3;
+    text-shadow: 2px 1px gray;
+}
+
+.content .container {
+    padding: 0 3px 10px 3px;
+    background: #000 url("img/container-bg-lg.png") repeat left top;
+}
+
+footer {
+    height: 50px;
+    background: aliceblue;
+    padding: 9px;
+}
+
+/* home page */
+.home-main {
+    border-style: groove;
+    border-width: 1px 2px 0 3px;
+    height: 700px;
+    border-radius: 12px;
+    border-color: #0000c3;
+    background-color: #0091c2;
+}
+
+.homeleft, .homeright{
+    margin: 3px 0;
+    height: 100%;
+    background: #f2f2f2;
+    border-width: 3px 1px 1px 3px;
+    border-radius: 1%;
+    padding: 21px;
+    border-style: groove;
+    border-color: gray;
+}
+
+.homeright {
+    font-family: Courier new;
+    font-size: larger;
+}
+
+.homeleft img {
+    display: block;
+    margin: 0 auto;
+    border-radius: 6px;
+    box-shadow: 6px 3px 9px rgba(0,0,0,.5);
+}
+
+/* tablet width */
+@media only screen and (max-width:1000px) and (min-width:650px) {
+    .homeleft img {
+        width: 220px;
+    }
+    .sidebar img {
+        width: 160px;
+    }
+}
+
+/* phone-ish width */
+@media only screen and (min-device-width:320px) 
+    and (max-device-width:640px) 
+    and (-webkit-min-device-pixel-ratio: 2)
+    and (orientation:portrait) {
+    .homeleft img {
+        width: 180px;
+    }
+    .sidebar img {
+        max-width: 210px;
+    }
+}
+
+/* Blog list */
+
+.blog-description .thumbnail {
+    float: left;
+    margin: 6px 9px 0 auto;
+}
+
+.blog-panel {
+    color: #fefefe;
+    padding: 3px 1px 3px 6px;
+    border-style: dashed;
+    border-width: thin;
+    border-radius: 3%;
+    background-color: #0b0b0b;
+    border-color: #00c;
+}
+
+.blog-panel h2 {
+    color: #fff0b0;
+}
+
+/* Blog single */
+
+.blogimg {
+    /* TODO - fix the resize function to save at this size */
+    width: 90%;
+    max-width: 640px;
+}
+
+.blog-post {
+    background: black;
+    padding: 20px;
+    border-radius: 3%;
+    color: #f3f3f3;
+    font-family: courier new;
+}
+
+.blog-post .caption {
+    font-family: arial;
+    font-size: smaller;
+    font-style: italic;
+    text-align: center;
+    padding: 2px 0 27px;
+    color: #03f;
+}
+
+.sidebar {
+    background: #000;
+    padding: 5px;
+    color: #fefefe;
+}
+
+.sidebar h3 {
+    margin-top: 10px;
+    text-align: center;
+}
+
+.sidebar img {
+    margin-left: -3px;
+    max-width: 300px;
+}
+
+#lntipModal .modal-content iframe {
+    width: 100%;
+    height: 100%;
+}
+
+#lntipModal .modal-dialog, #lntipModal .modal-content {
+    width: 300px;
+    height: 432px;
+}

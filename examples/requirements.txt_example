@@ -1,0 +1,11 @@
+# add these to your main project's requirements.txt file if they're not already there
+
+pillow>=5.1.0
+djangorestframework
+markdown
+django-filter
+django-video-encoding
+django-markdownx
+django_rq
+# django-audiofield -- use forked version from https://github.com/chucklinart
+# pip package doesn't work with newer versions of Django

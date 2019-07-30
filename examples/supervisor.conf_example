@@ -1,0 +1,11 @@
+# File lives in /etc/supervisor/conf.d
+[program:redis_worker]
+# CHANGEME
+command=/path/to/your/app/redis_worker
+user = youruser
+numprocs = 1
+
+stopsignal=TERM
+
+autostart=true
+autorestart=true

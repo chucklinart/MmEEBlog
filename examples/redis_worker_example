@@ -1,0 +1,25 @@
+#!/bin/bash
+
+# Place this file in your project's root and chmod u+x to make executable 
+
+NAME="MmeeBlog Video - redis_worker"
+
+# CHANGEME
+PROJECT_DIR=/path/to/your/app
+
+ENV_DIR=/path/to/your/env/
+
+echo "Starting $NAME as `whoami`"
+
+cd "${PROJECT_DIR}"
+
+if [ -d "${ENV_DIR}" ]
+then
+    . "${ENV_DIR}bin/activate"
+fi
+
+# Doing it this way because simply because it works in more types of setups.
+# You could call /path/to/your/env/bin/rqworker or /path/../../bin/rq worker 
+# directly from supervisor, but this works just as well and more universally.
+
+python manage.py rqworker default high low

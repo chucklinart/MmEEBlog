@@ -1,0 +1,128 @@
+# MmEEBLog's multimedia functionality  won't work without the following settings
+
+# Necessary for the redis queue among other things, you may need to change the value
+
+SITE_ID=1
+
+# Add the following to the top of your "INSTALLED_APPS" section
+
+INSTALLED_APPS = [
+    'mmeeblog',
+    'video_encoding',
+    'audiofield',
+    'markdownx',
+    'django_rq',
+    # other stuff below
+]
+
+# Redis queues
+# If your environment already has a redis server, you may need to change the DB param
+
+RQ_QUEUES = {
+    'default': {
+        'HOST': 'localhost',
+        'PORT': 6379,
+        'DB': 0,
+        # 'PASSWORD': 'CHANGEME',
+        'DEFAULT_TIMEOUT': 500,
+    },
+    # Not able to get this next part working, let me know if you 
+    # have better luck - https://github.com/chucklinart
+    # 'with-sentinel': {
+    #    'SENTINELS': [('localhost', 26736), ('localhost', 26737)],
+    #    'MASTER_NAME': 'master',
+    #    'DB': 0,
+    #    'PASSWORD': 'CHANGEME',
+    #    'SOCKET_TIMEOUT': None,
+    #    'CONNECTION_KWARGS': {
+    #        'socket_connect_timeout': 0.3
+    #    },
+    # },
+    'high': {
+        'HOST': 'localhost',
+        'PORT': 6379,
+        'DB': 0,
+        'DEFAULT_TIMEOUT': 500,
+    },
+    'low': {
+        'HOST': 'localhost',
+        'PORT': 6379,
+        'DB': 0,
+        'DEFAULT_TIMEOUT': 500,
+    }
+}
+
+# TODO - get a proper streaming format working See - https://trac.ffmpeg.org/wiki/StreamingGuide 
+# THESE FORMATS ARE ABSOLUTELY BASIC.  YOU SHOULD PLAY WITH THIS.
+
+VIDEO_ENCODING_FORMATS = {
+    'FFmpeg': [
+        {
+            'name': 'webm_sd',
+            'extension': 'webm',
+            'params': [
+                '-b:v', '1000k', '-maxrate', '1000k', '-bufsize', '2000k',
+                '-codec:v', 'libvpx', '-r', '30',
+                '-vf', 'scale=-1:480', '-qmin', '10', '-qmax', '42',
+                '-codec:a', 'libvorbis', '-b:a', '128k', '-f', 'webm',
+           ],
+        },
+            {
+                'name': 'webm_hd',
+                'extension': 'webm',
+                'params': [
+                    '-codec:v', 'libvpx',
+                    '-b:v', '3000k', '-maxrate', '3000k', '-bufsize', '6000k',
+                    '-vf', 'scale=-1:720', '-qmin', '11', '-qmax', '51',
+                    '-acodec', 'libvorbis', '-b:a', '128k', '-f', 'webm',
+                ],
+            },
+            {
+                'name': 'mp4_sd',
+                'extension': 'mp4',
+                'params': [
+                    '-codec:v', 'libx264', '-crf', '20', '-preset', 'medium',
+                    '-b:v', '1000k', '-maxrate', '1000k', '-bufsize', '2000k',
+                    '-vf', 'scale=-2:480',  # http://superuser.com/a/776254
+                    '-codec:a', 'aac', '-b:a', '128k', '-strict', '-2',
+                ],
+            },
+            {
+                'name': 'mp4_hd',
+                'extension': 'mp4',
+                'params': [
+                    '-codec:v', 'libx264', '-crf', '20', '-preset', 'medium',
+                    '-b:v', '3000k', '-maxrate', '3000k', '-bufsize', '6000k',
+                    '-vf', 'scale=-2:720',
+                    '-codec:a', 'aac', '-b:a', '128k', '-strict', '-2',
+                ],
+            },
+        ]
+}
+
+# Media files
+
+# Most setups already have PROJECT_DIR and BASE_DIR defined, if not:
+# PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
+# BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+MEDIA_ROOT = os.path.join(PROJECT_DIR, 'media')
+MEDIA_URL = '/media/'
+MEDIAFILES_DIRS = [
+    os.path.join(BASE_DIR, 'media'),
+]
+
+FILE_UPLOAD_PERMISSIONS = 0o644
+
+# Audio Field settings
+# Frontend widget values
+# 0-Keep original, 1-Mono, 2-Stereo
+CHANNEL_TYPE_VALUE = 0
+
+# 0-Keep original, 8000-8000Hz, 16000-16000Hz, 22050-22050Hz,
+# 44100-44100Hz, 48000-48000Hz, 96000-96000Hz
+FREQ_TYPE_VALUE = 8000
+
+# 0-Keep original, 1-Convert to MP3, 2-Convert to WAV, 3-Convert to OGG
+CONVERT_TYPE_VALUE = 0
+

@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+ {% load static %}
+    {% block content %}
+      <div class="container">
+        <div class="chuckhead">
+          <h2>{{ object.title }}</h2>
+        </div>
+        <div class="row blog-post">
+            <div class="col-sm-9 col-md-8 col-lg-8">
+              <h3><i>hERPidty derp</i></h3> 
+                </h4>-- page not found.  If you were looking for something in the past (some content on the old site), perhaps it has been archived in the Wayback Machine.  Try <a href='https://web.archive.org/web/*/http://chucklinart.com/blog'>there</a>."</h4>
+            </div>
+            <div class="col-sm-3 col-md-4 col-lg-4"><img src="{% static 'apple-touch-icon.png' %}"></div>
+        </div>
+      </div>
+    {% endblock %}
+

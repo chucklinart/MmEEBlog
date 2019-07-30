@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static blog_extras %}
+{% block content %}
+  <div class="container">
+    <div class="chuckhead">
+      <h2>Recent Blog Posts</h1>
+    </div>
+    {% if blog_list %}
+       {% for i in blog_list %}
+             <div class="col-xs-6 blog-panel">
+            <a href="{{i.slug}}"><h3>{{i.title}}</h3></a>
+               <span class='author'>By {{i.creator.user.first_name}}</span>
+               <span class='posted-on'>Posted: {{i.posted}}</span>
+               <div class='blog-description'>
+                   {% if i.blogimg.thumbnail.url %}
+                   <a href="{{i.slug}}"><img class="thumbnail" src="{{i.blogimg.thumbnail.url}}"/></a>
+                   {% else %}
+                   <a href="{{i.slug}}"><img class="thumbnail" src="/media/thumbs/default.jpg" /></a>
+                   {% endif %}
+                   <p>{{i.body|markdown|safe|truncatechars_html:280}}</p>  
+               </div>
+               <span class='readmore'><a href="{{i.slug}}">Read more</a></span>
+             </div>
+       {% endfor %}
+    {% else %}
+       <h3>No blog posts yet.</h3>
+    {% endif %}
+  </div>
+{% endblock %}
+

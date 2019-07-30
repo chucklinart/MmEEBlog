@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+ {% load static %}
+    {% block content %}
+      <div class="container">
+        <div class="chuckhead">
+          <h2>{{ object.title }}</h2>
+        </div>
+        <div class="row blog-post">
+            <div class="col-sm-9 col-md-8 col-lg-8">
+                 <span class="posted">Posted: {{object.posted}} </span>
+                 <span class="byline">By: {{object.creator.user.first_name}}</span>
+            <div class="blog-text">{{ object.description }}</div>
+            <div class="vid-player">
+            <video width=640 controls preload="metadata">
+                <source src="/media/formats/mp4_sd/"{{object.file_name}}"t=3.5" type="video/mp4">
+                <source src="/media/formats/webm_sd/"{{object.file_name}}"t=3.5" type="video/webm">
+                <source src="/media/formats/vorbis/"{{object.file_name}}"t=3.5"  type="video/ogv">
+            </video>
+            </div>
+            </div>
+        </div>
+      </div>
+    {% endblock %}
+

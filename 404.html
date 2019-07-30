@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="section" style="margin-top:2rem; height: 80vh;">
+ <div class="columns">
+   <div class="column is-half is-offset-one-quarter" style="margin-top: 12%;">
+      <article class="message is-small">
+        <div class="message-header">
+          <p class="title has-text-white-bis">Page no longer exists/never existed (404)</p>
+          <button class="delete is-small" aria-label="delete"></button>
+        </div>
+        <div class="message-body">
+          <div class="content">
+            <h4>{{message}}</h4>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+{% endblock %}
