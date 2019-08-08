@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
- {% load static %}
+ {% load static blog_extras %}
     {% block content %}
       <div class="container">
         <div class="chuckhead">
@@ -17,8 +17,35 @@
                 <source src="/media/formats/vorbis/{{object.file_name}}#t=0.5"  type="video/ogv">
             </video>
             </div>
+              <div class="tipjar"><a href="/lntip/" data-toggle="modal" data-target="#lntipModal"><span class="glyphicon glyphicon-flash"></span>BTC Lightning Tip</a></div>
+              <div class="returnblog"><a href="/videos">Return to Videos</a></div>
+            </div>
+            <div class="col-sm-3 col-md-4 col-lg-4">
+            {% if object.promos %}
+                <div class="sidebar">
+                {% for p in object.promos.all %}
+                    <h3 class="sidebar-head">{{p.title}}</h3>
+                    <div class="sidebar-text">{{p.body|markdown|safe}}</div>
+                    <div class="sidebar-img"><a href="{{p.link_to}}"><img src='{{p.adimg.pic.url}}' /></a></div>
+                {% endfor %}
+                </div>
+                {% endif %}
             </div>
         </div>
       </div>
+<div class="modal fade" id="lntipModal" tabindex="-1" role="dialog" aria-labelledby="lntipModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="lntipModalLabel">Lightning Tip</h4>
+      </div>
+      <div class="modal-body"></div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
     {% endblock %}
 

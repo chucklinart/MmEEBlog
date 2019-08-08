@@ -8,16 +8,16 @@
     {% if video_list %}
        {% for i in video_list %}
              <div class="col-xs-6 blog-panel">
-             <h3>{{i.title}}</h3>
+             <h3><a href="{{i.slug}}">{{i.title}}</a></h3>
                <span class='author'>By {{i.creator}}</span>
                <span class='posted-on'>Posted: {{i.posted}}</span>
                <div class='blog-description'>
-                   {% if i.blogimg.thumbnail.url %}
-                   <img class="thumbnail" src="{{i.blogimg.thumbnail.url}}"/>
+                   {% if i.thumbnail %}
+                   <a href="{{i.slug}}"><img class="thumbnail" src="{{i.thumbnail.url}}"/></a>
                    {% else %}
-                   <img class="thumbnail" src="/media/thumbs/default.jpg" />
+                   <a href="{{i.slug}}"<img class="thumbnail" src="/media/videos/thumbs/default.png" /></a>
                    {% endif %}
-                   <p>{{i.body|truncatechars_html:280}}</p>  
+                   <p>{{i.description|truncatechars_html:280}}</p>  
                </div>
                <span class='readmore'><a href="{{i.slug}}">Read more</a></span>
              </div>

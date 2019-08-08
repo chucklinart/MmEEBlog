@@ -1,16 +1,18 @@
 from django.db import models
 import os.path
+from pathlib import Path
+from datetime import datetime
 from .taxonomy import Category
 from .people import Blogger
 from PIL import Image
 from io import BytesIO
+from django.conf import settings
 from django.core.files.base import ContentFile
 from django.contrib.contenttypes.fields import GenericRelation
 from video_encoding.fields import VideoField
 from video_encoding.models import Format
-from django.conf import settings
 from audiofield.fields import AudioField
-import os.path
+import os, os.path
 from markdownx.models import MarkdownxField
 
 # general purpose media types
@@ -74,6 +76,18 @@ class Pic(models.Model):
 
         return True
 
+class Promo(models.Model):
+    title = models.CharField(max_length=100)
+    body = MarkdownxField()
+    link_to = models.CharField(max_length=270, null=True, blank=True)
+    adimg = models.ForeignKey(Pic, blank=True, null=True, on_delete=models.SET_NULL)
+
+    class Meta:
+        db_table="blog_promo"
+
+    def __str__(self):
+        return self.title
+
 class Video(models.Model):
     title = models.CharField(max_length=100, unique=True)
     slug = models.SlugField(max_length=100, unique=True)
@@ -86,6 +100,8 @@ class Video(models.Model):
     file = VideoField(width_field='width', height_field='height', duration_field='duration')
     category=models.ForeignKey(Category, null=True, on_delete=models.CASCADE)
     format_set=GenericRelation(Format)
+    thumbnail = models.ImageField(upload_to='videos/thumbs/%Y/%m/', editable=False, null=True)
+    promos = models.ManyToManyField(Promo, blank=True)
 
     class Meta:
         db_table = "blog_video"
@@ -101,7 +117,7 @@ class Video(models.Model):
 
     def file_name(self):
         return self.file.name
-
+    
 class Podcast(models.Model):
     title = models.CharField(max_length=100, unique=True)
     slug = models.SlugField(max_length=100, unique=True)
@@ -109,10 +125,9 @@ class Podcast(models.Model):
     description = models.TextField(max_length=1000)
     itunes_explicit = models.BooleanField(default=True)
     pubdate = models.DateField(db_index=True, auto_now_add=True)
-    audio_file = AudioField(upload_to='audio/%Y/%m/%d', blank=True,
-                        ext_whitelist=(".mp3", ".wav", ".ogg"),
-                        help_text=("Allowed type - .mp3, .wav, .ogg"))
-
+    pic = models.ForeignKey(Pic, blank=True, null=True, on_delete=models.SET_NULL)    
+    audio_file = AudioField(ext_whitelist=(".mp3", ".wav", ".ogg"), help_text=("Allowed type - .mp3, .wav, .ogg"))
+    promos = models.ManyToManyField(Promo, blank=True)
     class Meta:
         db_table="blog_podcast"
     
@@ -128,16 +143,4 @@ class Podcast(models.Model):
 
     audio_file_player.allow_tags = True
     audio_file_player.short_description = ('Audio file player')
-
-class Promo(models.Model):
-    title = models.CharField(max_length=100)
-    body = MarkdownxField()
-    link_to = models.CharField(max_length=270, null=True, blank=True)
-    adimg = models.ForeignKey(Pic, blank=True, null=True, on_delete=models.SET_NULL)
-
-    class Meta:
-        db_table="blog_promo"
-
-    def __str__(self):
-        return self.title
  

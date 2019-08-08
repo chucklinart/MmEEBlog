@@ -82,6 +82,8 @@ class CategoryBlogView(ListView):
 
 class VideoList(ListView):
     model = Video
+    ordering = ('-posted')
+    paginate_by = 10
     template_name='video_list.html'
     queryset = Video.objects.all()
     context_object_name = 'video_list'
@@ -92,6 +94,8 @@ class VideoDetailView(DetailView):
 
 class PodcastList(ListView):
     model = Podcast
+    ordering = ('-pubdate')
+    paginate_by = 10
     template_name='podcast_list.html'
     queryset = Podcast.objects.all()
     context_object_name = 'podcast_list'

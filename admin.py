@@ -69,7 +69,6 @@ class PodcastAdmin(admin.ModelAdmin):
         del actions['delete_selected']
         return actions
 
-# We have to unregister the User object in order to save the Blogger fields
 admin.site.unregister(User)
 admin.site.register(User, BloggerAdmin)
 admin.site.register(Category, CategoryAdmin)

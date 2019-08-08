@@ -15,6 +15,13 @@ INSTALLED_APPS = [
     # other stuff below
 ]
 
+# Add the following line to your "MIDDLEWARE" section:
+
+MIDDLEWARE = [
+   #other stuff here
+   'audiofield.middleware.threadlocals.ThreadLocals',
+]
+
 # Redis queues
 # If your environment already has a redis server, you may need to change the DB param
 

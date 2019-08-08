@@ -104,7 +104,7 @@ footer {
     border-radius: 3%;
     background-color: #0b0b0b;
     border-color: #00c;
-    height: 280px;
+    height: 300px;
 }
 
 .blog-panel h2 {
@@ -133,7 +133,12 @@ footer {
     font-style: italic;
     text-align: center;
     padding: 2px 0 27px;
-    color: #03f;
+    color: #a4f657;
+}
+
+.returnblog {
+    font-size: large;
+    text-align: center;
 }
 
 .sidebar {
