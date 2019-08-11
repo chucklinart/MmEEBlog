@@ -59,7 +59,7 @@ RQ_QUEUES = {
     }
 }
 
-# TODO - get a proper streaming format working See - https://trac.ffmpeg.org/wiki/StreamingGuide 
+# TODO - get a live streaming format working See - https://trac.ffmpeg.org/wiki/StreamingGuide 
 # THESE FORMATS ARE ABSOLUTELY BASIC.  YOU SHOULD PLAY WITH THIS.
 
 VIDEO_ENCODING_FORMATS = {
@@ -104,6 +104,14 @@ VIDEO_ENCODING_FORMATS = {
                     '-codec:a', 'aac', '-b:a', '128k', '-strict', '-2',
                 ],
             },
+            {
+               'name': 'vorbis',
+               'extension': 'ogg',
+               'params': [
+                   '-codec:v', 'libtheora', 'qscale:v 6', 'codec:a', 'libvorbis',
+                   'qscale:a 6',
+               ],
+            }, 
         ]
 }
 

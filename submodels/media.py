@@ -116,7 +116,9 @@ class Video(models.Model):
         return ('videos', None, { 'slug': self.slug })
 
     def file_name(self):
-        return self.file.name
+        # Remove extension so we can serve the right file per browser
+        sep = '.'
+        return self.file.name.split(sep, 1)[0]
     
 class Podcast(models.Model):
     title = models.CharField(max_length=100, unique=True)
